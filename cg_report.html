@@ -118,13 +118,18 @@ Cathedral inner image as environ-map.</p>
 <h2 id="disney-bsdf">15.5 Disney BSDF</h2>
 <p>The params of choice: metallic, anisotropic, clearcoat, specular,
 roughness.</p>
-<p><strong>Time spent:</strong> 30hr <strong>Ref:</strong> 1. Brent
-Burley. Physically-based shading at Disney. In SIGGRAPH Course, 2012. 2.
+<p><strong>Time spent:</strong> 30hr <strong>
+<br>  
+Ref:</strong> 1. Brent
+Burley. Physically-based shading at Disney. In SIGGRAPH Course, 2012. <br>  
+
+2.
 Eric Heitz. Sampling the GGX distribution of visible normals. J. Comput.
-Graph. Tech, 7(4), 2018. 3. UCSD CSE 272 Assignment 1: Disney Principled
+Graph. Tech, 7(4), 2018. <br>  
+3. UCSD CSE 272 Assignment 1: Disney Principled
 BSDF</p>
-<p>Problems: 1. anisotropic has some non-continuous boarder for meshes -
-Use the same tangent calculation for the analytical sphere, and I solved
+<p>Problems: 1. anisotropic has some non-continuous boarder for meshes <br>  
+- Use the same tangent calculation for the analytical sphere, and I solved
 the problem.</p>
 <h3 id="implementation-2">Implementation</h3>
 <p>The total bsdf function of the 5 params can be separated into a few
@@ -165,7 +170,8 @@ h|}{4|h\cdot\omega_{out}|}\)</span></li>
 </div>
 
 <h2 id="advanced-camera-model">15.8+5.1 Advanced camera model</h2>
-<p>Time spent: 15hr Ref: PBRT</p>
+<p>Time spent: 15hr</p>
+<p>Ref: PBRT</p>
 <p>Implemented 4 simulations of real camera defects, namely: Depth of
 Field, Distortion, Color Aberration and non-spherical aperture.</p>
 <h3 id="implementation-and-results">Implementation and Results</h3>
@@ -216,6 +222,7 @@ So, some modification in camera.h is needed.
 
 </ol>
 <h2 id="building-my-own-mesh">5.20 Building my own mesh</h2>
+<p>Time spent: 5hr</p>
 <p>I made a hot air balloon. This is during modeling:</p>
 <img src="images/cjc/mesh/modeling.png" alt="modeling"/> <br> <br> <br> <br>
 <p>This is the result:</p>
