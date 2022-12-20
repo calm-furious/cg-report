@@ -40,7 +40,7 @@
 <div class="container contentWrapper">
 <div class="pageContent">
 
-<h1 class="title">Junchi Chen's feature:</h2>
+<h1 class="title">Junchi Chen's feature:</h1>
 <h2 id="euler">5.19 Rendering using the Euler Cluster</h2>
 <p><strong>Time spent:</strong> 5hr</p>
 <p><strong>Problems occured:</strong></p>
@@ -229,8 +229,69 @@ So, some modification in camera.h is needed.
 <img src="images/cjc/mesh/result1.png" alt="result"/> <br> <br> <br> <br>
 <img src="images/cjc/mesh/result.png" alt="result"/> <br> <br> <br> <br>
 
+
+<h1 class="title">Xiyi Chen's feature:</h1>
+
+<h2 id="euler">5.2 Motion blur for cameras</h2>
+<p><strong>Time spent:</strong> ~1hr</p>
+
+<h3 id="implementation-2">Implementation</h3>
+<p>Sample a time t, given a camera to world transformation T1 and camera moving direction transformation T2, build a new transformation T' = T1*(1-t) + T2*t if using camera motion blur. </p>
+<p>Files changed: camera.h, perspective.cpp, simcamera.cpp.</p>
+
+<div class="twentytwenty-container">
+  <img src="images/cxy/motionblur/cbox_path_mis.png" alt="without_motion_blur" class="img-responsive">
+  <img src="images/cxy/motionblur/cbox_path_mis_motion_blur.png" alt="with_motion_blur" class="img-responsive">
+</div>
+
+<h2 id="euler">5.3 Images as Textures</h2>
+<p><strong>Time spent:</strong> ~2hrs</p>
+
+<h3 id="implementation-2">Implementation</h3>
+<p>I use lodepng library (https://github.com/lvandeve/lodepng) to load a png texture file as RGBA, and calculate the scaled u and v coordinates (as in checkerboard), and then convert them back to width / height in the image space to fetch the corresponding pixels. </p>
+<p>Files changed/added: imageastexture.cpp, lodepng.cpp, lodepng.h.</p>
+
+<div class="twentytwenty-container">
+  <img src="images/cxy/imageastexture/mesh-texture.png" alt="mine" class="img-responsive">
+  <img src="images/cxy/imageastexture/texture_mitsuba.png" alt="mitsuba reference" class="img-responsive">
+</div>
+
+<h2 id="euler">15.8 Moderate Denoising 1: NL-means using Pixel Variance Estimates</h2>
+<p><strong>Time spent:</strong> ~10hrs</p>
+
+<h3 id="implementation-2">Implementation</h3>
+<p>I calculate the variance map during rendering process following the pseudocode for variance estimation in the slides. After that, I use a simple python script to apply nl-means denoising following the pseudocode of "NL-Means – Fast Implementation" in the slides. </p>
+<p>Files changed/added: main.cpp, render.cpp, nl_means_denoiser.py, nl_means_denoising_opencv.py.</p>
+
+<div class="twentytwenty-container">
+  <img src="images/cxy/denoise/cbox_path_mis.png" alt="render results" class="img-responsive">
+  <img src="images/cxy/denoise/cbox_path_mis_var.png" alt="variance" class="img-responsive">
+</div>
+
+<div class="twentytwenty-container">
+  <img src="images/cxy/denoise/cbox_path_mis_denoised_opencv.png" alt="mine, denoised" class="img-responsive">
+  <img src="images/cxy/denoise/cbox_path_mis_denoised.png" alt="opencv reference" class="img-responsive">
+</div>
+
+<h2 id="euler">30.1 Heterogeneous Volumetric Participating Media</h2>
+<p><strong>Time spent:</strong> ~40hrs</p>
+
+<h3 id="implementation-2">Implementation</h3>
+<p>I implemented heterogeneous participating media in the entire scenes and bound it as a box using input origin/dimension parameters. The distance sampling and transmittance functions refer to mitsuba implementation. To medium interaction, we move t along the ray by -log(1 - random) * density / sigma_t, and terminate with a failure status if it goes beyond tmax or moves out of the bounding box. Otherwise, we record the point at t and return the albedo times density if albedo / density is larger than a random number. 
+The volumetric path tracing integrator extends on path_mis from the last homework. For volume interaction, the pdf of the material sampling and wo are sampled from the phase function. For surface interaction, pdf_mats comes from bsdf and everything basically follows the path mis integrator, except that there's a transmittance term multiplied to every light contribution. Russian roulette is performed in both volume/surface interaction. In addition, after setting the new ray, I check if there's an intersection and update w_mats. For phase function, I only had time to do the isotropic one. </p>
+<p>Files changed/added: medium.h, PhaseFunction.h, scene.h/.cpp, isotropic.cpp, heterogeneous.cpp, volpath_mis.cpp</p>
+
+<div class="twentytwenty-container">
+  <img src="images/cxy/medium/cbox_path_mis_hetero.png" alt="mine" class="img-responsive">
+  <img src="images/cxy/medium/scene_hetero_mitsuba.png" alt="mitsuba" class="img-responsive">
+</div>
+
+<h1 class="title">Final Image</h1>
+
+
 </div>
 </div>
+
 
 
 <!-- Bootstrap core JavaScript -->
